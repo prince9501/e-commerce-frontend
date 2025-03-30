@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useContext } from 'react'
 import authService from '../api/authService'
 
 const AuthContext = createContext()
@@ -56,4 +56,14 @@ export const AuthProvider = ({ children }) => {
   )
 }
 
+// Custom hook for consuming the context
+export const useAuth = () => {
+  const context = useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+  return context
+}
+
+// Default export (keep if needed by other files)
 export default AuthContext
